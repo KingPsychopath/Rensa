@@ -1,0 +1,10 @@
+/bin/*
+.settings/*
+/target/*
+
+.classpath
+*.jar
+*.class
+config.txt
+test.bat
+.project
