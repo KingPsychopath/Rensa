@@ -1,5 +1,8 @@
 package com.edasaki.rensa;
 
+import java.io.File;
+
+import com.edasaki.rensa.abstracts.AbstractManager;
 import com.edasaki.rensa.config.ConfigManager;
 import com.edasaki.rensa.logging.Saki;
 
@@ -28,6 +31,20 @@ public class Rensa {
         return val;
     }
 
+    public static File getDataFolder() {
+        File f = new File("data" + File.separator);
+        if (!f.exists())
+            f.mkdirs();
+        return f;
+    }
+
+    public static File getDataFolder(String subdir) {
+        File f = new File("data" + File.separator, subdir);
+        if (!f.exists())
+            f.mkdirs();
+        return f;
+    }
+
     public void sendMessage(String channel, String message) {
         for (IChannel ch : client.getGuildByID(ConfigManager.getPrimaryGuild()).getChannels()) {
             if (ch.getName().equalsIgnoreCase(channel)) {
@@ -47,6 +64,8 @@ public class Rensa {
     @EventSubscriber
     public void onReady(ReadyEvent event) {
         ready = true;
+        AbstractManager.processQueuedManagers();
+        AbstractManager.registerAll();
         Saki.log("Successfully loaded Rensa!");
     }
 

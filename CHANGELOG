@@ -1,0 +1,16 @@
+0.0.2
+- Added data folder.
+- Added CasinoManager and associated commands.
+--- !balance - Check user balance.
+- Added built-in help command which matches the regex ".help" (!help, .help, ?help etc. will all be processed).
+- Commands now require a description (for use in the help command).
+- Managers can now be forced to load after Rensa has fully connected (ReadyEvent received).
+- Removed initialize() from AbstractManager constructor - moved it to be run after the constructor.
+- Added MusicManager and associated commands.
+--- Automatically connect to a specified music channel on load.
+--- Parse and play laylists (each line in file should be URL to a file).
+--- Play music from data/music.
+- Changed to Java 8.
+
+0.0.1
+- Initial commit.

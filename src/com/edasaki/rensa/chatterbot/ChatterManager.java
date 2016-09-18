@@ -62,6 +62,7 @@ public class ChatterManager extends AbstractManager {
         try {
             //            ChatterBotSession session = (Math.random() < 0.5 ? PANDORABOT : CLEVERBOT).createSession();
             ChatterBotSession session = PANDORABOT.createSession(); // Pandora seems a little more "human-like" in my opinion.
+            //            ChatterBotSession session = CLEVERBOT.createSession();
             return session;
         } catch (Exception e) {
             e.printStackTrace();

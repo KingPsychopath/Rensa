@@ -2,7 +2,8 @@ package com.edasaki.rensa.config;
 
 public enum Config {
     BOT_TOKEN("App Bot User Token", "bot_token"),
-    GUILD_ID("Primary Guild ID", "guild_id");
+    GUILD_ID("Primary Guild ID", "guild_id"),
+    MUSIC_CHANNEL("Music Channel", "music_channel");
 
     private String displayName;
     private String storedName;

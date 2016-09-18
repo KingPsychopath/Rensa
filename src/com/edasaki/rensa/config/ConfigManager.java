@@ -25,6 +25,10 @@ public class ConfigManager extends AbstractManager {
         return getConfig(Config.GUILD_ID);
     }
 
+    public static String getMusicChannel() {
+        return getConfig(Config.MUSIC_CHANNEL);
+    }
+
     private static String getConfig(Config config) {
         if (configs.containsKey(config)) {
             return configs.get(config);

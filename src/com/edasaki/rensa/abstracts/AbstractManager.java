@@ -15,7 +15,9 @@ public abstract class AbstractManager {
 
     private static ArrayList<AbstractManager> managers = new ArrayList<AbstractManager>();
 
-    public static void registerAll() {
+    private static ArrayList<Class<? extends AbstractManager>> queuedManagers = new ArrayList<Class<? extends AbstractManager>>();
+
+    public static final void registerAll() {
         if (Rensa.getInstance() == null)
             try {
                 throw new NoRensaException();
@@ -27,11 +29,27 @@ public abstract class AbstractManager {
         }
     }
 
-    public static void create(Class<? extends AbstractManager> clazz) {
-        try {
-            managers.add(clazz.newInstance());
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+    public static final void processQueuedManagers() {
+        Saki.log("Setting up managers...");
+        for (Class<? extends AbstractManager> c : queuedManagers)
+            create(c, true);
+    }
+
+    public static final void create(Class<? extends AbstractManager> clazz) {
+        create(clazz, false);
+    }
+
+    public static final void create(Class<? extends AbstractManager> clazz, boolean preload) {
+        if (preload || Rensa.isReady()) {
+            try {
+                AbstractManager am = clazz.newInstance();
+                managers.add(am);
+                am.initialize();
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        } else {
+            queuedManagers.add(clazz);
         }
     }
 
@@ -39,7 +57,6 @@ public abstract class AbstractManager {
 
     protected AbstractManager() {
         try {
-            initialize();
             Saki.log("Loaded " + this.getClass().getSimpleName() + ".");
         } catch (Exception e) {
             e.printStackTrace();

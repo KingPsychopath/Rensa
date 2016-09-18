@@ -3,11 +3,13 @@ package com.edasaki.rensa;
 import org.slf4j.LoggerFactory;
 
 import com.edasaki.rensa.abstracts.AbstractManager;
+import com.edasaki.rensa.casino.CasinoManager;
 import com.edasaki.rensa.chatterbot.ChatterManager;
 import com.edasaki.rensa.commands.CommandManager;
 import com.edasaki.rensa.config.ConfigManager;
 import com.edasaki.rensa.input.InputManager;
 import com.edasaki.rensa.logging.Saki;
+import com.edasaki.rensa.music.MusicManager;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -25,15 +27,17 @@ public class RensaLauncher {
         Logger root = (Logger) LoggerFactory.getLogger(Discord4J.class);
         root.setLevel(Level.INFO);
 
-        AbstractManager.create(ConfigManager.class);
-        AbstractManager.create(InputManager.class);
-        AbstractManager.create(CommandManager.class);
-        AbstractManager.create(ChatterManager.class);
+        // ConfigManager must be created first for getClientInstance()
+        AbstractManager.create(ConfigManager.class, true);
 
         IDiscordClient client = getClientInstance();
         Rensa.setInstance(new Rensa(client));
 
-        AbstractManager.registerAll();
+        AbstractManager.create(InputManager.class);
+        AbstractManager.create(CommandManager.class);
+        AbstractManager.create(ChatterManager.class);
+        AbstractManager.create(CasinoManager.class);
+        AbstractManager.create(MusicManager.class);
 
         Saki.log("Preparing connection...");
 
