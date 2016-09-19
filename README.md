@@ -8,7 +8,9 @@ Find us on Discord!
 
 #Core Features
 - Modularized design to easily expand using `AbstractManager` and `AbstractCommand`.
-- Multi-threaded feature handling for smooth responses
+- Multi-threaded feature handling for smooth responses.
+- Buffered messaging and moderation to avoid Discord's rate limits.
+- Anti-clutter message management that deletes unnecessary messages from interactions with Rensa to keep chat clean and readable.
 
 #Built-In Features (Commands)
 ###ChatterBot
@@ -18,7 +20,16 @@ Find us on Discord!
 - Terminates inactive chat sessions to avoid excess memory usage.
 - Automatically parses out @mentions and #channel-mentions to their display text (i.e. reads a user's name instead of their ID).
 
-###Bully
+###The Casino - `!balance`, `!gift`, `!coinflip`
+- A set of fun games to allow players on your Discord server to earn virtual currency.
+- Get a small amount of free currency from `!gift` to keep playing!
+- Flip a coin to double a bet or lose it all.
+
+###Hangman - `!hangman`, `!hguess`, `!hanswer`
+- A Discord version of the classic Hangman game. Guess the word, but make too many mistakes and you lose!
+- Rewards players with Casino currency based on their performance.
+
+###Anti-bullying - `!bully`
 - No bullying!
 
 ###Status
