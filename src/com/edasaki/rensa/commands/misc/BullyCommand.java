@@ -17,4 +17,9 @@ public class BullyCommand extends AbstractCommand {
         Rensa.getInstance().sendMessage(msg.getChannel(), "Hey! No bullying! <http://twitter.com/antibullyranger>");
     }
 
+    @Override
+    public String getDescription() {
+        return "Summon the anti-bully ranger.";
+    }
+
 }

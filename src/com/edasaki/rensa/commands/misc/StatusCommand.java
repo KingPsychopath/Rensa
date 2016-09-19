@@ -61,4 +61,9 @@ public class StatusCommand extends AbstractCommand {
         Rensa.getInstance().sendMessage(msg.getChannel(), ERROR_MESSAGE);
     }
 
+    @Override
+    public String getDescription() {
+        return "Get the server status of Zentrela.";
+    }
+
 }

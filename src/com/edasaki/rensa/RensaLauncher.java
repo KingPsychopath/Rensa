@@ -7,6 +7,7 @@ import com.edasaki.rensa.casino.CasinoManager;
 import com.edasaki.rensa.chatterbot.ChatterManager;
 import com.edasaki.rensa.commands.CommandManager;
 import com.edasaki.rensa.config.ConfigManager;
+import com.edasaki.rensa.hangman.HangmanManager;
 import com.edasaki.rensa.input.InputManager;
 import com.edasaki.rensa.logging.Saki;
 import com.edasaki.rensa.music.MusicManager;
@@ -37,6 +38,7 @@ public class RensaLauncher {
         AbstractManager.create(CommandManager.class);
         AbstractManager.create(ChatterManager.class);
         AbstractManager.create(CasinoManager.class);
+        AbstractManager.create(HangmanManager.class);
         AbstractManager.create(MusicManager.class);
 
         Saki.log("Preparing connection...");

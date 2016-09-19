@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.edasaki.rensa</groupId>
 	<artifactId>rensa</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.3</version>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>com.github.austinv11</groupId>
 			<artifactId>Discord4j</artifactId>
-			<version>2.6.0</version>
+			<version>dev-SNAPSHOT</version>
 			<classifier>shaded</classifier>
 		</dependency>
 		<dependency>

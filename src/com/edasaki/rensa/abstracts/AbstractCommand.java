@@ -70,6 +70,12 @@ public abstract class AbstractCommand {
 
     protected abstract void execute(String[] args, IMessage msg);
 
+    public abstract String getDescription();
+
+    public String getIdentifier() {
+        return identifierExact;
+    }
+
     public AbstractCommand(String identifier, CommandMatchType matchType) {
         this(identifier, matchType, 0);
     }

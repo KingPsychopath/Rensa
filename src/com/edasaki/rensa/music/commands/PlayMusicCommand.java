@@ -44,4 +44,9 @@ public class PlayMusicCommand extends AbstractCommand {
         }
     }
 
+    @Override
+    public String getDescription() {
+        return "Play music. Currently incomplete.";
+    }
+
 }

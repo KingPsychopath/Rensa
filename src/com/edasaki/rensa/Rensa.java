@@ -5,14 +5,17 @@ import java.io.File;
 import com.edasaki.rensa.abstracts.AbstractManager;
 import com.edasaki.rensa.config.ConfigManager;
 import com.edasaki.rensa.logging.Saki;
+import com.edasaki.rensa.utils.MessageCallback;
 
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IGuild;
+import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
+import sx.blah.discord.util.RequestBuffer;
 
 public class Rensa {
 
@@ -46,7 +49,11 @@ public class Rensa {
     }
 
     public void sendMessage(String channel, String message) {
-        for (IChannel ch : client.getGuildByID(ConfigManager.getPrimaryGuild()).getChannels()) {
+        sendMessage(client.getGuildByID(ConfigManager.getPrimaryGuild()), channel, message);
+    }
+
+    public void sendMessage(IGuild guild, String channel, String message) {
+        for (IChannel ch : guild.getChannels()) {
             if (ch.getName().equalsIgnoreCase(channel)) {
                 sendMessage(ch, message);
             }
@@ -54,11 +61,38 @@ public class Rensa {
     }
 
     public void sendMessage(IChannel ch, String message) {
-        try {
-            ch.sendMessage(message);
-        } catch (RateLimitException | MissingPermissionsException | DiscordException e) {
-            e.printStackTrace();
-        }
+        sendMessage(ch, message, null);
+    }
+
+    public void sendMessage(IChannel ch, String message, MessageCallback callback) {
+        RequestBuffer.request(() -> {
+            try {
+                IMessage result = ch.sendMessage(message);
+                if (callback != null)
+                    callback.run(result);
+            } catch (MissingPermissionsException | DiscordException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void delete(IMessage message) {
+        RequestBuffer.request(() -> {
+            try {
+                message.delete();
+            } catch (MissingPermissionsException | DiscordException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void sendResponse(IMessage msg, String message) {
+        sendResponse(msg, message, null);
+    }
+
+    public void sendResponse(IMessage msg, String message, MessageCallback callback) {
+        String response = msg.getAuthor().mention() + ", " + message;
+        sendMessage(msg.getChannel(), response, callback);
     }
 
     @EventSubscriber
@@ -72,6 +106,10 @@ public class Rensa {
     public void registerListener(Object listener) {
         client.getDispatcher().registerListener(listener);
         Saki.log("Registered listener " + listener.getClass().getName() + ".");
+    }
+
+    public static Rensa instance() {
+        return instance;
     }
 
     public static Rensa getInstance() {

@@ -111,7 +111,11 @@ public class MusicManager extends AbstractManager {
             if (url != null)
                 name = url.getQuery();
         }
-        Rensa.getInstance().sendMessage("music", "Now playing: " + name);
+        for (IVoiceChannel channel : event.getClient().getConnectedVoiceChannels()) {
+            if (channel.getUsersHere().size() > 1) {
+                Rensa.getInstance().sendMessage(channel.getGuild(), "music", "Now playing: " + name);
+            }
+        }
     }
 
     public void forceSong(File f) {

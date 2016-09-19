@@ -31,6 +31,8 @@ If you're not a developer:
 
 1. Instructions coming soon!
 
+Rensa is NOT designed to be a multi-guild bot! Rensa will probably work even while connected to multiple guilds, but behavior will be more buggy. The intention is for Rensa to be run separately by each person who would like to use it. This also ensures better privacy, as there will be no centralized bot reading your guild's messages.
+
 ##Writing your own commands
 `com.edasaki.rensa.abstracts.AbstractCommand` was designed to be an easy way to add versatile commands!
 

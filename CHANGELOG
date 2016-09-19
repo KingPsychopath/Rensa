@@ -1,3 +1,27 @@
+0.0.3
+- Music Manager
+--- The "Now Playing" message is no longer sent if there is no one in the voice channel.
+- Command Manager
+--- Commands now require implementing getDescription(), which simply returns a String description of the command.
+--- The help command is automatically generated from registered commands and their descriptions.
+--- Commands are now registered with a "category" and stored in a map.
+- Added sendResponse to Rensa which automatically mentions the author of the given message.
+- CasinoManager
+--- !gift - receive free currency every 10 minutes.
+--- !coinflip - 50/50 to double a bet or lose it. Rensa will automatically keep chat clean.
+- Message sending and deleting is now buffered by default to avoid hitting rate limits.
+- HangmanManager - *** NEW ***
+--- New Hangman game!
+--- Automatically tries to keep chat clean by deleting older hangman messages.
+--- Draws a cute hangman picture as the game progresses.
+--- Players get 6 mistakes and lose on their 7th mistake.
+--- Keeps track of what letters have been guessed.
+--- Separate game instances for each user.
+--- Rewards currency based on performance.
+- Switched to dev-SNAPSHOT build of Discord4J to fix issue with message deletion.
+- Added callbacks to message sending.
+- Added utility functions for formatting time lengths into readable strings.
+
 0.0.2
 - Added data folder.
 - Added CasinoManager and associated commands.
